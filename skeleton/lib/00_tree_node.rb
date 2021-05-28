@@ -1,3 +1,5 @@
+require 'byebug'
+
 class PolyTreeNode
   attr_reader :value, :parent, :children
 
@@ -23,16 +25,34 @@ class PolyTreeNode
     node.parent = nil
     raise "node is not a child" if node.parent.nil?
   end
+
   # searchable
   def dfs(target)
     return self if self.value == target
 
     self.children.each do |child|
-      curr_child = child.dfs(target)
-      curr_child = child unless curr_child.nil?
+      curr_child = child.dfs(target) # this will return either child or nil
+      return curr_child unless curr_child.nil?
+    end
+
+    nil
+  end
+
+  def bfs(target)
+    # debugger
+    possible_matches = [self]
+
+    until possible_matches.empty?
+      # debugger
+
+      possible_match = possible_matches.shift
+      if possible_match.value == target
+        return possible_match
+      else
+        possible_matches.concat(possible_match.children)
+      end
     end
 
     nil
   end
 end
-
