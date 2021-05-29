@@ -1,5 +1,5 @@
 require_relative './poly_tree_node'
-
+require 'byebug'
 class KnightPathFinder
   def self.valid_moves(pos)
     possible_moves = []
@@ -39,11 +39,41 @@ class KnightPathFinder
       end
     end
 
+    possible_moves.each do |possible_move|
+      pos.children << possible_move
+      possible_move.parent = pos
+    end
+
     considered_positions.concat(possible_moves)
     possible_moves
   end
 
-  def build_move_tree
+  def build_move_tree(target)
+    queue = considered_positions
+    end_pos = target
     
+    debugger
+    until queue.empty?
+      new_move = queue.shift
+      if new_move.value == target
+        end_pos = new_move
+      else
+        queue.concat(new_move_positions(new_move))
+      end
+    end
+
+    move_tree = []
+    debugger
+    until end_pos.parent.nil?
+      parent = end_pos.parent
+      move_tree.concat(parent)
+      end_pos = parent.parent
+    end
+
+    move_tree
   end
 end
+
+# test cases
+k = KnightPathFinder.new([0,0])
+k.build_move_tree([7,7])
