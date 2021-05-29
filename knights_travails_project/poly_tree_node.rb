@@ -12,7 +12,7 @@ class PolyTreeNode
       self.parent.children.delete(self)
     end
     @parent = node
-    node.children << self unless node.nil? || node.children.include?(self)
+    @parent.children << self unless node.nil? || node.children.include?(self)
   end
 
   def add_child(node)
@@ -52,5 +52,9 @@ class PolyTreeNode
     end
 
     nil
+  end
+
+  def inspect
+    print "#{value}//#{parent}//#{children}"
   end
 end
