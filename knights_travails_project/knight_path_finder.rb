@@ -74,7 +74,7 @@ class KnightPathFinder
       end_node = parent.parent
     end
 
-    move_tree
+    [start_pos.value] + move_tree
   end
 
   def bfs(target)
