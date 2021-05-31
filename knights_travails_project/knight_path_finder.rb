@@ -94,4 +94,4 @@ end
 
 # test cases
 k = KnightPathFinder.new([0, 0])
-p k.build_move_tree([7, 7])
+p k.build_move_tree([3, 3])
